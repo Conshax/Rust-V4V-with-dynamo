@@ -23,7 +23,7 @@ impl From<base64::DecodeError> for Error {
 }
 
 pub fn from_b64(b64: &str) -> Result<Boostagram, Error> {
-    let json_raw = general_purpose::STANDARD_NO_PAD.decode(b64)?;
+    let json_raw = general_purpose::STANDARD.decode(b64)?;
     serde_json::from_slice(&json_raw).map_err(Error::from)
 }
 
