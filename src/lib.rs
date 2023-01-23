@@ -33,7 +33,9 @@ pub fn from_json(json: &str) -> Result<Boostagram, Error> {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub enum Action{
+    #[serde(rename = "stream")]
     STREAM,
+    #[serde(rename = "boost")]
     BOOST
 }
 
