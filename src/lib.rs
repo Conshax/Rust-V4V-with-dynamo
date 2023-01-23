@@ -31,13 +31,13 @@ pub fn from_json(json: &str) -> Result<Boostagram, Error> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub enum Action{
     STREAM,
     BOOST
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Boostagram {
     pub podcast: Option<String>,
 
