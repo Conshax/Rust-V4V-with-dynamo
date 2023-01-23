@@ -2,6 +2,8 @@ use serde::{Deserialize, Serialize};
 use serde_json;
 use thiserror::Error;
 
+use base64::{Engine as _, engine::general_purpose};
+
 #[derive(Error, Debug)]
 pub enum Error {
     #[error("serde_json error: {0}")]
@@ -12,6 +14,17 @@ impl From<serde_json::Error> for Error {
     fn from(err: serde_json::Error) -> Self {
         Error::Deserializing(err.to_string())
     }
+}
+
+impl From<base64::DecodeError> for Error {
+    fn from(err: base64::DecodeError) -> Self {
+        Error::Deserializing(err.to_string())
+    }
+}
+
+pub fn from_b64(b64: &str) -> Result<Boostagram, Error> {
+    let json_raw = general_purpose::STANDARD_NO_PAD.decode(b64)?;
+    serde_json::from_slice(&json_raw).map_err(Error::from)
 }
 
 pub fn from_json(json: &str) -> Result<Boostagram, Error> {
