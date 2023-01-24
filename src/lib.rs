@@ -52,7 +52,7 @@ pub struct Boostagram {
 
     pub episode: Option<String>,
 
-    #[serde(rename = "episodeID")]
+    #[serde(rename = "itemID")]
     pub item_id: Option<usize>,
 
     pub episode_guid: Option<String>,
