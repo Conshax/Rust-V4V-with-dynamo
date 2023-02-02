@@ -36,7 +36,9 @@ pub enum Action{
     #[serde(rename = "stream")]
     STREAM,
     #[serde(rename = "boost")]
-    BOOST
+    BOOST,
+    #[serde(rename = "lsat")]
+    LSAT
 }
 
 #[derive(Serialize, Deserialize, Debug)]
