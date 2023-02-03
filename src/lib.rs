@@ -38,7 +38,9 @@ pub enum Action{
     #[serde(rename = "boost")]
     BOOST,
     #[serde(rename = "lsat")]
-    LSAT
+    LSAT,
+    #[serde(other)]
+    Unknown
 }
 
 #[derive(Serialize, Deserialize, Debug)]
