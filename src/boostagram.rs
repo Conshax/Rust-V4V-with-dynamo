@@ -94,7 +94,7 @@ impl BoostagramBuilder {
     pub fn build(self) -> Result<Boostagram> {
         let boost = self.boostagram;
 
-        if boost.podcast.is_none() || boost.feed_id.is_none() || boost.url.is_none() || boost.guid.is_none() {
+        if boost.podcast.is_none() && boost.feed_id.is_none() && boost.url.is_none() && boost.guid.is_none() {
             return Err(Error::BuildingError("either podcast, feed_id, url or guid must be set according to spec".to_string()))
         }
 
