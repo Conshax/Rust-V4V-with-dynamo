@@ -138,11 +138,6 @@ impl BoostagramBuilder {
         self.boostagram.podcast = Some(podcast);
         self
     }
-    
-    pub fn amount(mut self, amount: u64) -> Self {
-        self.boostagram.value_msat = Some(amount);
-        self
-    }
 
     pub fn feed_id(mut self, feed_id: usize) -> Self {
         self.boostagram.feed_id = Some(feed_id);
