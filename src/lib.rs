@@ -95,8 +95,9 @@ pub struct Boostagram {
 
     pub uuid: Option<String>,
 
-    pub value_msat: Option<usize>,
+    //can't be larger for the lightning network
+    pub value_msat: Option<u64>,
 
-    pub value_msat_total: Option<usize>,
-
+    //can't be larger for the lightning network
+    pub value_msat_total: Option<u64>,
 }
