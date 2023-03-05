@@ -14,6 +14,11 @@ pub fn from_json(json: &str) -> Result<Boostagram> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
+pub fn to_b64(boost: &Boostagram) -> Result<String> {
+    let json = serde_json::to_vec(boost)?;
+    Ok(general_purpose::STANDARD.encode(json))
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub enum Action{
     #[serde(rename = "stream")]
@@ -262,5 +267,11 @@ impl BoostagramBuilder {
     pub fn boost_link(mut self, boost_link: String) -> Self {
         self.boostagram.boost_link = Some(boost_link);
         self
+    }
+}
+
+impl Default for BoostagramBuilder {
+    fn default() -> Self {
+        Self::new()
     }
 }

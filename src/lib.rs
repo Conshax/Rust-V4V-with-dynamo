@@ -40,12 +40,10 @@ pub fn calculate_splits(splits: Vec<(u64, bool)>, amt: u64) -> Result<Vec<u64>> 
     Ok(splits.into_iter().map( |(split, fee)|
         if fee {
             amt * split / 100
+        } else if split_sum == 0 {
+            0
         } else {
-            if split_sum == 0 {
-                0
-            } else {
-                (split * rest_percentage * amt) / (split_sum * 100)
-            }
+            (split * rest_percentage * amt) / (split_sum * 100)
         }
     ).collect())
 }
