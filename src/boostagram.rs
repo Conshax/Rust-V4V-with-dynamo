@@ -14,11 +14,6 @@ pub fn from_json(json: &str) -> Result<Boostagram> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
-pub fn to_b64(boost: &Boostagram) -> Result<String> {
-    let json = serde_json::to_vec(boost)?;
-    Ok(general_purpose::STANDARD.encode(json))
-}
-
 #[derive(Serialize, Deserialize, Debug)]
 pub enum Action{
     #[serde(rename = "stream")]
@@ -88,6 +83,13 @@ pub struct Boostagram {
 
     //can't be larger for the lightning network
     pub value_msat_total: Option<u64>,
+}
+
+impl Boostagram {
+    pub fn to_b64(&self) -> Result<String> {
+        let json = serde_json::to_vec(self)?;
+        Ok(general_purpose::STANDARD.encode(json))
+    }
 }
 
 pub struct BoostagramBuilder {
