@@ -11,3 +11,6 @@ serde = { version = "1.0.152", features = ["derive"] }
 serde_json = "1.0.91"
 thiserror = "1.0.38"
 
+derive_into_dynamo = { git = "ssh://git@github.com/Conshax/derive_into_dynamo.git"}
+into_dynamo = { git = "ssh://git@github.com/Conshax/derive_into_dynamo.git"}
+aws-sdk-dynamodb = "0.24.0"

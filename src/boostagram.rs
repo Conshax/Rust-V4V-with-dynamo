@@ -1,9 +1,10 @@
+use derive_into_dynamo::IntoDynamoItem;
 use serde::{Deserialize, Serialize};
 use serde_json;
 
-use crate::{Result, Error};
+use crate::{Error, Result};
 
-use base64::{Engine as _, engine::general_purpose};
+use base64::{engine::general_purpose, Engine as _};
 
 pub fn from_b64(b64: &str) -> Result<Boostagram> {
     let json_raw = general_purpose::STANDARD.decode(b64)?;
@@ -14,8 +15,8 @@ pub fn from_json(json: &str) -> Result<Boostagram> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub enum Action{
+#[derive(IntoDynamoItem, Serialize, Deserialize, Debug)]
+pub enum Action {
     #[serde(rename = "stream")]
     STREAM,
     #[serde(rename = "boost")]
@@ -23,10 +24,10 @@ pub enum Action{
     #[serde(rename = "lsat")]
     LSAT,
     #[serde(other)]
-    Unknown
+    Unknown,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(IntoDynamoItem, Serialize, Deserialize, Debug)]
 pub struct Boostagram {
     pub podcast: Option<String>,
 
@@ -97,12 +98,17 @@ pub struct BoostagramBuilder {
 }
 
 impl BoostagramBuilder {
-
     pub fn build(self) -> Result<Boostagram> {
         let boost = self.boostagram;
 
-        if boost.podcast.is_none() && boost.feed_id.is_none() && boost.url.is_none() && boost.guid.is_none() {
-            return Err(Error::BuildingError("either podcast, feed_id, url or guid must be set according to spec".to_string()))
+        if boost.podcast.is_none()
+            && boost.feed_id.is_none()
+            && boost.url.is_none()
+            && boost.guid.is_none()
+        {
+            return Err(Error::BuildingError(
+                "either podcast, feed_id, url or guid must be set according to spec".to_string(),
+            ));
         }
 
         Ok(boost)
