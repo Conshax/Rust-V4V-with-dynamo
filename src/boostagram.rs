@@ -15,7 +15,7 @@ pub fn from_json(json: &str) -> Result<Boostagram> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
-#[derive(IntoDynamoItem, Serialize, Deserialize, Debug)]
+#[derive(IntoDynamoItem, Serialize, Deserialize, Debug, Clone)]
 pub enum Action {
     #[serde(rename = "stream")]
     STREAM,
@@ -27,7 +27,7 @@ pub enum Action {
     Unknown,
 }
 
-#[derive(IntoDynamoItem, Serialize, Deserialize, Debug)]
+#[derive(IntoDynamoItem, Serialize, Deserialize, Debug, Clone)]
 pub struct Boostagram {
     pub podcast: Option<String>,
 
@@ -93,6 +93,7 @@ impl Boostagram {
     }
 }
 
+#[derive(Clone)]
 pub struct BoostagramBuilder {
     boostagram: Boostagram,
 }
