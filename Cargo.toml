@@ -1,5 +1,5 @@
 [package]
-name = "v4v-types"
+name = "Rust-V4V"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
