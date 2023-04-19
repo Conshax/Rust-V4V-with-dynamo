@@ -1,1 +1,3 @@
-A small lib that provides a type for the record described in https://github.com/lightning/blips/blob/master/blip-0010.md
+# Rust-V4V
+
+A V4V utility crate. Including bLIP 10 implementation for Rust, split calculation and serialization.
