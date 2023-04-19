@@ -9,7 +9,7 @@ homepage = "https://github.com/Conshax/Rust-V4V"
 documentation = "https://github.com/Conshax/Rust-V4V"
 repository = "https://github.com/Conshax/Rust-V4V"
 readme = "README.md"
-keywords = ["v4v, blip, podcast, lightning, value4value"]
+keywords = ["v4v", "blip", "podcast", "lightning", "value4value"]
 categories = ["finance", "data-structures", "cryptography::cryptocurrencies", "algorithms"]
 
 
