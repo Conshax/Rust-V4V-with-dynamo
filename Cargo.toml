@@ -24,4 +24,4 @@ thiserror = "1.0.38"
 
 derive_into_dynamo = { git = "ssh://git@github.com/Conshax/derive_into_dynamo.git"}
 into_dynamo = { git = "ssh://git@github.com/Conshax/derive_into_dynamo.git"}
-aws-sdk-dynamodb = "0.24.0"
+aws-sdk-dynamodb = "0.26.0"
