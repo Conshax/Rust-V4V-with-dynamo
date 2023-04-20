@@ -23,6 +23,8 @@ pub enum Action {
     BOOST,
     #[serde(rename = "lsat")]
     LSAT,
+    #[serde(rename = "auto")]
+    AUTO,
     #[serde(other)]
     Unknown,
 }

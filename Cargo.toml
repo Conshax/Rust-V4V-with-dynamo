@@ -1,7 +1,18 @@
 [package]
-name = "v4v-types"
-version = "0.1.0"
+name = "rust-v4v"
+version = "0.1.1"
 edition = "2021"
+license = "MIT"
+authors = ["Alwin Stockinger"]
+description = "V4V utility crate. Including bLIP 10 implementation for Rust, split calculation and serialization"
+homepage = "https://github.com/Conshax/Rust-V4V"
+documentation = "https://docs.rs/rust-v4v"
+repository = "https://github.com/Conshax/Rust-V4V"
+readme = "README.md"
+keywords = ["v4v", "blip", "podcast", "lightning", "value4value"]
+categories = ["finance", "data-structures", "cryptography::cryptocurrencies", "algorithms"]
+
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
