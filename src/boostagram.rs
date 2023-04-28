@@ -1,16 +1,16 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
 use serde_json;
 
-use crate::{Error, Result};
+use crate::Error;
 
 use base64::{engine::general_purpose, Engine as _};
 
-pub fn from_b64(b64: &str) -> Result<Boostagram> {
+pub fn from_b64(b64: &str) -> Result<Boostagram, Error> {
     let json_raw = general_purpose::STANDARD.decode(b64)?;
     serde_json::from_slice(&json_raw).map_err(Error::from)
 }
 
-pub fn from_json(json: &str) -> Result<Boostagram> {
+pub fn from_json(json: &str) -> Result<Boostagram, Error> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
@@ -42,6 +42,7 @@ pub struct Boostagram {
     pub episode: Option<String>,
 
     #[serde(rename = "itemID")]
+    #[serde(deserialize_with = "deserialize_item_id")]
     pub item_id: Option<usize>,
 
     pub episode_guid: Option<String>,
@@ -87,8 +88,15 @@ pub struct Boostagram {
     pub value_msat_total: Option<u64>,
 }
 
+fn deserialize_item_id<'de, D>(d: D) -> Result<Option<usize>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    Deserialize::deserialize(d).or(Ok(Option::None))
+}
+
 impl Boostagram {
-    pub fn to_b64(&self) -> Result<String> {
+    pub fn to_b64(&self) -> Result<String, Error> {
         let json = serde_json::to_vec(self)?;
         Ok(general_purpose::STANDARD.encode(json))
     }
@@ -99,7 +107,7 @@ pub struct BoostagramBuilder {
 }
 
 impl BoostagramBuilder {
-    pub fn build(self) -> Result<Boostagram> {
+    pub fn build(self) -> Result<Boostagram, Error> {
         let boost = self.boostagram;
 
         if boost.podcast.is_none()
@@ -412,5 +420,25 @@ impl BoostagramBuilder {
 impl Default for BoostagramBuilder {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_from_fountain_invoice() {
+        let boost_raw = "eyJhcHBfbmFtZSI6IkZvdW50YWluIiwidmFsdWVfbXNhdF90b3RhbCI6MTAwMDAwLCJuYW1lIjoiQWxieSBUZXN0IFVzZXIgUFVUIiwicG9kY2FzdCI6IlRlc3QgUG9kY2FzdCBBbmNob3IiLCJmZWVkSUQiOjYwMTU2NzEsImFjdGlvbiI6ImJvb3N0Iiwic2VuZGVyX2lkIjoiblNpcTdpZDc4SkFkSDl1WTFwSXkiLCJzZW5kZXJfbmFtZSI6IkBhbHdpbl9jb25zaGF4IiwibWVzc2FnZSI6InRlc3QiLCJpdGVtSUQiOiIxNDkzNDE1NDMwOSIsImJvb3N0X2xpbmsiOiJodHRwczovL2ZvdW50YWluLmZtL2VwaXNvZGUvMTQ5MzQxNTQzMDkiLCJlcGlzb2RlIjoidGhpcyBpcyBhIHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgbG9uZyBlcGlzb2RlIG5hbWUhISEiLCJ0cyI6MzI5LCJ0aW1lIjoiMDA6MDU6MjkifQ==";
+
+        let result = from_b64(boost_raw);
+
+        dbg!(&result);
+
+        assert!(result.is_ok());
+
+        let boostagram = result.unwrap();
+
+        assert_eq!(boostagram.item_id, None);
     }
 }

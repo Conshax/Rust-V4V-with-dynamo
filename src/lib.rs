@@ -1,7 +1,5 @@
 use thiserror::Error;
 
-pub type Result<T> = std::result::Result<T, Error>;
-
 pub mod boostagram;
 
 #[derive(Error, Debug)]
@@ -19,7 +17,7 @@ pub enum Error {
     ParameterInvalid(String),
 }
 
-pub fn calculate_splits(splits: Vec<(u64, bool)>, amt: u64) -> Result<Vec<u64>> {
+pub fn calculate_splits(splits: Vec<(u64, bool)>, amt: u64) -> Result<Vec<u64>, Error> {
     let (split_sum, fee_sum) =
         splits
             .iter()

@@ -20,5 +20,6 @@ categories = ["finance", "data-structures", "cryptography::cryptocurrencies", "a
 base64 = "0.21.0"
 serde = { version = "1.0.152", features = ["derive"] }
 serde_json = "1.0.91"
+serde_with = "2.3.2"
 thiserror = "1.0.38"
 
