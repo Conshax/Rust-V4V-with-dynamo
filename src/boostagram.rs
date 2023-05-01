@@ -14,7 +14,7 @@ pub fn from_json(json: &str) -> Result<Boostagram, Error> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub enum Action {
     #[serde(rename = "stream")]
     STREAM,
@@ -28,7 +28,7 @@ pub enum Action {
     Unknown,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct Boostagram {
     pub podcast: Option<String>,
 
@@ -43,7 +43,6 @@ pub struct Boostagram {
 
     #[serde(rename = "itemID")]
     #[serde(deserialize_with = "deserialize_item_id")]
-    #[serde(default)]
     pub item_id: Option<usize>,
 
     pub episode_guid: Option<String>,
