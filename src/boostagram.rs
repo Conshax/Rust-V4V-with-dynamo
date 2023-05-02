@@ -43,6 +43,7 @@ pub struct Boostagram {
 
     #[serde(rename = "itemID")]
     #[serde(deserialize_with = "deserialize_item_id")]
+    #[serde(default)]
     pub item_id: Option<usize>,
 
     pub episode_guid: Option<String>,
