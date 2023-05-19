@@ -1,3 +1,4 @@
+use derive_into_dynamo::IntoDynamoItem;
 use serde::{Deserialize, Deserializer, Serialize};
 use serde_json;
 
@@ -14,7 +15,7 @@ pub fn from_json(json: &str) -> Result<Boostagram, Error> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq)]
+#[derive(IntoDynamoItem, Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum Action {
     #[serde(rename = "stream")]
     STREAM,
@@ -28,7 +29,7 @@ pub enum Action {
     Unknown,
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq)]
+#[derive(IntoDynamoItem, Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Boostagram {
     pub podcast: Option<String>,
 
@@ -103,6 +104,7 @@ impl Boostagram {
     }
 }
 
+#[derive(Clone)]
 pub struct BoostagramBuilder {
     boostagram: Boostagram,
 }
@@ -431,6 +433,21 @@ mod tests {
     #[test]
     fn test_from_fountain_invoice() {
         let boost_raw = "eyJhcHBfbmFtZSI6IkZvdW50YWluIiwidmFsdWVfbXNhdF90b3RhbCI6MTAwMDAwLCJuYW1lIjoiQWxieSBUZXN0IFVzZXIgUFVUIiwicG9kY2FzdCI6IlRlc3QgUG9kY2FzdCBBbmNob3IiLCJmZWVkSUQiOjYwMTU2NzEsImFjdGlvbiI6ImJvb3N0Iiwic2VuZGVyX2lkIjoiblNpcTdpZDc4SkFkSDl1WTFwSXkiLCJzZW5kZXJfbmFtZSI6IkBhbHdpbl9jb25zaGF4IiwibWVzc2FnZSI6InRlc3QiLCJpdGVtSUQiOiIxNDkzNDE1NDMwOSIsImJvb3N0X2xpbmsiOiJodHRwczovL2ZvdW50YWluLmZtL2VwaXNvZGUvMTQ5MzQxNTQzMDkiLCJlcGlzb2RlIjoidGhpcyBpcyBhIHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgdmVyeSB2ZXJ5IHZlcnkgbG9uZyBlcGlzb2RlIG5hbWUhISEiLCJ0cyI6MzI5LCJ0aW1lIjoiMDA6MDU6MjkifQ==";
+
+        let result = from_b64(boost_raw);
+
+        dbg!(&result);
+
+        assert!(result.is_ok());
+
+        let boostagram = result.unwrap();
+
+        assert_eq!(boostagram.item_id, None);
+    }
+
+    #[test]
+    fn test_missing_item_id() {
+        let boost_raw = "eyJwb2RjYXN0IjoiQUJDIiwiZmVlZElEIjpudWxsLCJ1cmwiOm51bGwsImd1aWQiOm51bGwsImVwaXNvZGUiOm51bGwsIml0ZW1JRCI6bnVsbCwiZXBpc29kZV9ndWlkIjpudWxsLCJ0aW1lIjpudWxsLCJ0cyI6bnVsbCwiYWN0aW9uIjpudWxsLCJhcHBfbmFtZSI6bnVsbCwiYXBwX3ZlcnNpb24iOm51bGwsImJvb3N0X2xpbmsiOm51bGwsIm1lc3NhZ2UiOm51bGwsIm5hbWUiOm51bGwsInB1YmtleSI6bnVsbCwic2Vjb25kc19iYWNrIjpudWxsLCJzZW5kZXJfa2V5IjpudWxsLCJzZW5kZXJfbmFtZSI6bnVsbCwic2VuZGVyX2lkIjpudWxsLCJzaWdfZmllbGRzIjpudWxsLCJzaWduYXR1cmUiOm51bGwsInNwZWVkIjpudWxsLCJ1dWlkIjpudWxsLCJ2YWx1ZV9tc2F0IjpudWxsLCJ2YWx1ZV9tc2F0X3RvdGFsIjpudWxsfQ==";
 
         let result = from_b64(boost_raw);
 
