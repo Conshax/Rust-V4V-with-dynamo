@@ -14,21 +14,21 @@ pub fn from_json(json: &str) -> Result<Boostagram, Error> {
     serde_json::from_str(json).map_err(Error::from)
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub enum Action {
     #[serde(rename = "stream")]
-    STREAM,
+    Stream,
     #[serde(rename = "boost")]
-    BOOST,
+    Boost,
     #[serde(rename = "lsat")]
-    LSAT,
+    Lsat,
     #[serde(rename = "auto")]
-    AUTO,
+    Auto,
     #[serde(other)]
     Unknown,
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub struct Boostagram {
     pub podcast: Option<String>,
 
