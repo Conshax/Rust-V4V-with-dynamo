@@ -66,17 +66,9 @@ pub struct Boostagram {
 
     pub name: Option<String>,
 
-    pub pubkey: Option<String>,
-
-    pub seconds_back: Option<usize>,
-
-    pub sender_key: Option<String>,
-
     pub sender_name: Option<String>,
 
     pub sender_id: Option<String>,
-
-    pub sig_fields: Option<String>,
 
     pub signature: Option<String>,
 
@@ -85,10 +77,14 @@ pub struct Boostagram {
     pub uuid: Option<String>,
 
     //can't be larger for the lightning network
-    pub value_msat: Option<u64>,
-
-    //can't be larger for the lightning network
     pub value_msat_total: Option<u64>,
+
+    pub reply_address: Option<String>,
+
+    //TODO why string?
+    pub reply_custom_key: Option<usize>,
+
+    pub reply_custom_value: Option<String>,
 }
 
 fn deserialize_item_id<'de, D>(d: D) -> Result<Option<usize>, D::Error>

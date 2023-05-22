@@ -41,17 +41,15 @@ impl BoostagramBuilder {
                 boost_link: None,
                 message: None,
                 name: None,
-                pubkey: None,
-                seconds_back: None,
-                sender_key: None,
                 sender_name: None,
                 sender_id: None,
-                sig_fields: None,
                 signature: None,
                 speed: None,
                 uuid: None,
-                value_msat: None,
                 value_msat_total: None,
+                reply_address: None,
+                reply_custom_key: None,
+                reply_custom_value: None,
             },
         }
     }
@@ -136,33 +134,33 @@ impl BoostagramBuilder {
         self
     }
 
-    pub fn pubkey(mut self, pubkey: String) -> Self {
-        self.boostagram.pubkey = Some(pubkey);
+    pub fn reply_address(mut self, reply_address: String) -> Self {
+        self.boostagram.reply_address = Some(reply_address);
         self
     }
 
-    pub fn pubkey_opt(mut self, pubkey: Option<String>) -> Self {
-        self.boostagram.pubkey = pubkey;
+    pub fn reply_address_opt(mut self, reply_address: Option<String>) -> Self {
+        self.boostagram.reply_address = reply_address;
         self
     }
 
-    pub fn seconds_back(mut self, seconds_back: usize) -> Self {
-        self.boostagram.seconds_back = Some(seconds_back);
+    pub fn reply_custom_key(mut self, reply_custom_key: usize) -> Self {
+        self.boostagram.reply_custom_key = Some(reply_custom_key);
         self
     }
 
-    pub fn seconds_back_opt(mut self, seconds_back: Option<usize>) -> Self {
-        self.boostagram.seconds_back = seconds_back;
+    pub fn reply_custom_key_opt(mut self, reply_custom_key: Option<usize>) -> Self {
+        self.boostagram.reply_custom_key = reply_custom_key;
         self
     }
 
-    pub fn sender_key(mut self, sender_key: String) -> Self {
-        self.boostagram.sender_key = Some(sender_key);
+    pub fn reply_custom_value(mut self, reply_custom_value: String) -> Self {
+        self.boostagram.reply_custom_value = Some(reply_custom_value);
         self
     }
 
-    pub fn sender_key_opt(mut self, sender_key: Option<String>) -> Self {
-        self.boostagram.sender_key = sender_key;
+    pub fn reply_custom_value_opt(mut self, reply_custom_value: Option<String>) -> Self {
+        self.boostagram.reply_custom_value = reply_custom_value;
         self
     }
 
@@ -183,16 +181,6 @@ impl BoostagramBuilder {
 
     pub fn sender_id_opt(mut self, sender_id: Option<String>) -> Self {
         self.boostagram.sender_id = sender_id;
-        self
-    }
-
-    pub fn sig_fields(mut self, sig_fields: String) -> Self {
-        self.boostagram.sig_fields = Some(sig_fields);
-        self
-    }
-
-    pub fn sig_fields_opt(mut self, sig_fields: Option<String>) -> Self {
-        self.boostagram.sig_fields = sig_fields;
         self
     }
 
@@ -223,16 +211,6 @@ impl BoostagramBuilder {
 
     pub fn uuid_opt(mut self, uuid: Option<String>) -> Self {
         self.boostagram.uuid = uuid;
-        self
-    }
-
-    pub fn value_msat(mut self, value_msat: u64) -> Self {
-        self.boostagram.value_msat = Some(value_msat);
-        self
-    }
-
-    pub fn value_msat_opt(mut self, value_msat: Option<u64>) -> Self {
-        self.boostagram.value_msat = value_msat;
         self
     }
 
