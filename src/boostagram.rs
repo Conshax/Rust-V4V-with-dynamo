@@ -20,12 +20,16 @@ pub fn from_json(json: &str) -> Result<Boostagram, Error> {
 #[derive(IntoDynamoItem, Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum Action {
     #[serde(rename = "stream")]
+    #[dynamo(rename = "STREAM")]
     Stream,
     #[serde(rename = "boost")]
+    #[dynamo(rename = "BOOST")]
     Boost,
     #[serde(rename = "lsat")]
+    #[dynamo(rename = "LSAT")]
     Lsat,
     #[serde(rename = "auto")]
+    #[dynamo(rename = "AUTO")]
     Auto,
     #[serde(other)]
     Unknown,
