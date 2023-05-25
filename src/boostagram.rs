@@ -37,58 +37,82 @@ pub enum Action {
 
 #[derive(IntoDynamoItem, Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Boostagram {
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub podcast: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "feedID")]
     pub feed_id: Option<usize>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub guid: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub episode: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "itemID")]
     #[serde(deserialize_with = "deserialize_item_id")]
     #[serde(default)]
     pub item_id: Option<usize>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub episode_guid: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub time: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ts: Option<usize>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub action: Option<Action>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub app_name: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub app_version: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub boost_link: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sender_name: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sender_id: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub signature: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub speed: Option<String>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub uuid: Option<String>,
 
     //can't be larger for the lightning network
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub value_msat_total: Option<u64>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_address: Option<String>,
 
     //TODO why string?
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_custom_key: Option<usize>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_custom_value: Option<String>,
 }
 
