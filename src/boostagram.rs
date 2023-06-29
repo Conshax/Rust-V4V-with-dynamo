@@ -42,6 +42,8 @@ pub struct Boostagram {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "feedID")]
+    #[serde(deserialize_with = "deserialize_item_id")]
+    #[serde(default)]
     pub feed_id: Option<usize>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
