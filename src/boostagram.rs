@@ -110,7 +110,8 @@ pub struct Boostagram {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_address: Option<String>,
 
-    //TODO why string?
+    #[serde(deserialize_with = "deserialize_item_id")]
+    #[serde(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_custom_key: Option<usize>,
 
