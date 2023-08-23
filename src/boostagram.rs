@@ -108,6 +108,7 @@ pub struct Boostagram {
     pub value_msat_total: Option<u64>,
 
     #[serde(deserialize_with = "deserialize_reply_address")]
+    #[serde(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_address: Option<String>,
 
