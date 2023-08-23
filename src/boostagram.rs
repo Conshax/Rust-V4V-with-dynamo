@@ -107,6 +107,7 @@ pub struct Boostagram {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub value_msat_total: Option<u64>,
 
+    #[serde(deserialize_with = "deserialize_reply_address")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reply_address: Option<String>,
 
@@ -120,6 +121,13 @@ pub struct Boostagram {
 }
 
 fn deserialize_item_id<'de, D>(d: D) -> Result<Option<usize>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    Deserialize::deserialize(d).or(Ok(Option::None))
+}
+
+fn deserialize_reply_address<'de, D>(d: D) -> Result<Option<String>, D::Error>
 where
     D: Deserializer<'de>,
 {
