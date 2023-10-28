@@ -67,6 +67,8 @@ pub struct Boostagram {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub time: Option<String>,
 
+    #[serde(deserialize_with = "deserialize_item_id")]
+    #[serde(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ts: Option<usize>,
 
